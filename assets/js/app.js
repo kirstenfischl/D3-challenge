@@ -93,21 +93,24 @@ d3.csv("./assets/data/data.csv").then(function(dabblerData, err) {
         .attr("stroke-width", "1")
         .attr("stroke", "black");
 
-    // THESE LABELS DON'T WORK!!!!!!!!!!!!
-    var text = circlesGroup.selectAll("text")
-        .data(dabblerData)
-        .enter()
-        .append("circle");
+    // insert labels
+    var circleLabels = chartGroup.selectAll(null).data(dabblerData).enter().append("text");
 
-    var textLabels = text
-        .attr("x", function(d) {return d.cx;})
-        .attr("y", function(d) {return d.cy;})
-        .text(function(d) {return "test";})
-        .attr("font-family", "sans-serif")
-        .attr("font-size", "20px")
-        .attr("fill", "black");
-
-    // FIX TITLE, FIX LABELS, ADD TICKERS!!!!
+    circleLabels
+      .attr("x", function(d) {
+        return xLinearScale(d.poverty);
+      })
+      .attr("y", function(d) {
+        return yLinearScale(d.healthcare);
+      })
+      .text(function(d) {
+        return d.abbr;
+      })
+      .attr("font-family", "sans-serif")
+      .attr("font-size", "10px")
+      .attr("text-anchor", "middle")
+      .attr("fill", "black");
+    
 
 
 });
